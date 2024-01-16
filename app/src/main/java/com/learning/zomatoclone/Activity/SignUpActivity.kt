@@ -1,0 +1,128 @@
+package com.learning.zomatoclone.Activity
+
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.learning.zomatoclone.Utils.BaseActivity
+import com.learning.zomatoclone.Utils.Constants
+import com.learning.zomatoclone.ViewModel.AuthenticationClass
+import com.learning.zomatoclone.databinding.ActivitySignUpBinding
+
+class SignUpActivity : BaseActivity() {
+    lateinit var binding:ActivitySignUpBinding
+    lateinit var viewModel: AuthenticationClass
+    lateinit var email:String
+    lateinit var name:String
+    lateinit var password:String
+    override fun onCreate(savedInstanceState: Bundle?) {
+        binding= ActivitySignUpBinding.inflate(layoutInflater)
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        charByCharDisplay(binding.signUpTv.text.toString(),binding.signUpTv)
+        try {
+            // connecting view model
+            viewModel=ViewModelProvider(this)[AuthenticationClass::class.java]
+
+            // redirect to login page
+            binding.LoginPageRedirect.setOnClickListener {
+                startActivity(Intent(this,SignInActivity::class.java))
+                finish()
+            }
+            // sign up
+            binding.SignUpBtn.setOnClickListener{
+                 showProgressBar(this)
+                 email=binding.etEmail.text.toString()
+                 password=binding.etPassword.text.toString()
+                 name=binding.etName.text.toString()
+                if(valid())
+                    try {
+                        viewModel.SignUp(name,this@SignUpActivity, email, password)
+                    }catch (e:Exception)
+                    {
+                        Log.d("rk",e.message.toString())
+                    }
+
+            }
+            // result of sign up if successful the call sign in
+            viewModel.observerTaskResult().observe(this,Observer {task->
+                cancelProgressBar()
+                if(task.isSuccessful)
+                {
+                    Toast(this,"Please verify your email")
+                    viewModel.sendVerificationCode()
+                }
+                else
+                {
+                    Toast(this,task.exception!!.message.toString())
+                }
+            })
+
+            viewModel.observerVerifiedEmail().observe(this, Observer{task->
+                if(task.isSuccessful)
+                {
+                    var intent=Intent(this,SignInActivity::class.java)
+                    intent.putExtra(Constants.EMAIL,email)
+                    intent.putExtra(Constants.PASSWORD,password)
+                    startActivity(intent)
+                }
+                else
+                {
+                    Toast(this@SignUpActivity,"Email not sent "+task.exception!!.message.toString())
+                }
+            })
+        }catch (e:Exception)
+        {
+            Log.e("rk",e.message.toString())
+        }
+    }
+    fun isEmailValid(email: String): Boolean {
+        val emailRegex = Regex("^\\S+@\\S+\\.\\S+\$")
+        return emailRegex.matches(email)
+    }
+    fun valid():Boolean
+    {
+        if(email.length>0 && password.length>0 && name.length>0)
+        {
+            if(isEmailValid(email) && password.length>=6) {
+                return true;
+            }
+            else if(password.length<6)
+            {
+                Toast(this,"password length should be greater then 6")
+            }
+            else
+                Toast(this,"Please Enter valid email")
+        }
+        else if(email.length==0)
+        {
+            Toast(this,"Please Enter your email")
+        }
+        else if(password.length==0)
+        {
+            Toast(this,"Please Enter your password")
+        }
+        else
+        {
+            Toast(this,"Please Enter your name")
+        }
+        return false
+    }
+    fun charByCharDisplay(textToDisplay:String,textView: TextView) {
+        val handler = Handler(Looper.getMainLooper())
+        var currentIndex=0
+        handler.post(object : Runnable {
+            override fun run() {
+                if (currentIndex < textToDisplay.length) {
+                    textView.text = textToDisplay.substring(0, currentIndex + 1)
+                    currentIndex++
+                    handler.postDelayed(this, 300)
+                }
+            }
+        })
+    }
+}

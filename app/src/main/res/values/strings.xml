@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Zomato Clone</string>
+
+
+    <string name="heading1">Discover Diverse Flavors</string>
+    <string name="heading2">Cooking Adventures Await</string>
+    <string name="heading3">Global Gastronomy</string>
+
+    <string name="description1">Discover diverse flavors by exploring a variety of food categories and cuisines.</string>
+    <string name="description2">Unlock culinary creativity with detailed recipes and step into a world of cooking</string>
+    <string name="description3">Embark on a global gastronomic adventure, exploring diverse cuisines from around the world</string>
+
+    <string name="intro">Discover the joy of cooking with our interactive recipe app that brings a world of flavors to your fingertips</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

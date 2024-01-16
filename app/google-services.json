@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "696614912834",
+    "project_id": "eat-sure",
+    "storage_bucket": "eat-sure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696614912834:android:fdb1824c0539c5048fbedb",
+        "android_client_info": {
+          "package_name": "com.learning.zomatoclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAib1DRCqMttf8SDnckSZZ0RKBpFpIh8sI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
