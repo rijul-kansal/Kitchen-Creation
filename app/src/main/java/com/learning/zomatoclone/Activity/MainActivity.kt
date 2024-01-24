@@ -9,10 +9,11 @@ import com.learning.zomatoclone.Fragments.FavFragment
 import com.learning.zomatoclone.Fragments.HomeFragment
 import com.learning.zomatoclone.Fragments.SettingFragment
 import com.learning.zomatoclone.R
+import com.learning.zomatoclone.Utils.BaseActivity
 import com.learning.zomatoclone.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityMainBinding.inflate(layoutInflater)

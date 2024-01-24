@@ -51,6 +51,7 @@ dependencies {
 
     // Lottie Animation
     implementation("com.airbnb.android:lottie:6.3.0")
+
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -68,4 +69,11 @@ dependencies {
 
     // circular image view
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
