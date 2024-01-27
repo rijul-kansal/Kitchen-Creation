@@ -9,6 +9,8 @@ object Constants {
 
     const val EMAIL="email"
     const val PASSWORD="password"
+    const val SEE_ALL_CAT_OR_CUS="catorcus"
+    const val DETAILS_OF_CAT_OR_CUS="detailofcatorcus"
     const val BASE_URL= "https://www.themealdb.com"
     fun getInstance() : Retrofit {
         return Retrofit.Builder()

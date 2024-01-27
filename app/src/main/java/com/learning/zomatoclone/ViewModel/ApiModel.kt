@@ -14,6 +14,7 @@ import com.learning.zomatoclone.API.ApiService
 import com.learning.zomatoclone.Fragments.HomeFragment
 import com.learning.zomatoclone.Model.Categories.CategoreisModel
 import com.learning.zomatoclone.Model.RandomMeal.RandomMealModel
+import com.learning.zomatoclone.Model.SingleCatOrCus.SingleCatOrCusModel
 import com.learning.zomatoclone.Utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ import retrofit2.Response
 class ApiModel:ViewModel() {
     private var randomMealResult:MutableLiveData<Response<RandomMealModel>> = MutableLiveData()
     private var categoriesResult: MutableLiveData<Response<CategoreisModel>> = MutableLiveData()
+    private var singleCatOrCusResult:MutableLiveData<Response<SingleCatOrCusModel>> = MutableLiveData()
     fun getRandomMeal(activity: Activity) {
         if (checkForInternet(activity)) {
             val matchApi = Constants.getInstance().create(ApiService::class.java)
@@ -32,6 +34,44 @@ class ApiModel:ViewModel() {
                     withContext(Dispatchers.Main)
                     {
                         randomMealResult.value=result
+                    }
+                }catch (e: Exception) {
+                    Log.e("rijul", "Exception: ${e.message}")
+                }
+            }
+        }
+        else{
+            HomeFragment().updateUI("Internet is not working")
+        }
+    }
+    fun getSingleCat(activity: Activity,c:String) {
+        if (checkForInternet(activity)) {
+            val matchApi = Constants.getInstance().create(ApiService::class.java)
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val result = matchApi.getSingleCat(c)
+                    withContext(Dispatchers.Main)
+                    {
+                        singleCatOrCusResult.value=result
+                    }
+                }catch (e: Exception) {
+                    Log.e("rijul", "Exception: ${e.message}")
+                }
+            }
+        }
+        else{
+            HomeFragment().updateUI("Internet is not working")
+        }
+    }
+    fun getSingleCus(activity: Activity,a:String) {
+        if (checkForInternet(activity)) {
+            val matchApi = Constants.getInstance().create(ApiService::class.java)
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val result = matchApi.getSingleCus(a)
+                    withContext(Dispatchers.Main)
+                    {
+                        singleCatOrCusResult.value=result
                     }
                 }catch (e: Exception) {
                     Log.e("rijul", "Exception: ${e.message}")
@@ -63,6 +103,7 @@ class ApiModel:ViewModel() {
     }
     fun observeGetRandomMeal():LiveData<Response<RandomMealModel>> = randomMealResult
     fun observeGetCategoriesMeal():LiveData<Response<CategoreisModel>> = categoriesResult
+    fun observeSingleCatOrCus():LiveData<Response<SingleCatOrCusModel>> = singleCatOrCusResult
     private fun checkForInternet(context: Activity): Boolean
     {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -82,4 +123,5 @@ class ApiModel:ViewModel() {
             return networkInfo.isConnected
         }
     }
+
 }

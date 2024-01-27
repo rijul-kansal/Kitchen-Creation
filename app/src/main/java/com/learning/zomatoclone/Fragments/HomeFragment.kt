@@ -2,6 +2,7 @@ package com.learning.zomatoclone.Fragments
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,11 +15,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.zomatoclone.ViewModel.ApiModel
 import com.bumptech.glide.Glide
+import com.learning.zomatoclone.Activity.DetailOfCatCus
+import com.learning.zomatoclone.Activity.SeeAllCatCus
 import com.learning.zomatoclone.Adapter.CategoriesAdapter
 import com.learning.zomatoclone.Adapter.CusianAdapter
 import com.learning.zomatoclone.Model.Categories.CatShown
 import com.learning.zomatoclone.Model.Cuisine.CusShown
 import com.learning.zomatoclone.R
+import com.learning.zomatoclone.Utils.Constants
 import com.learning.zomatoclone.databinding.FragmentHomeBinding
 
 
@@ -31,9 +35,6 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel= ViewModelProvider(this)[ApiModel::class.java]
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        arguments?.let {
-
-        }
     }
 
     override fun onCreateView(
@@ -77,7 +78,6 @@ class HomeFragment : Fragment() {
                         for(i in 0..result.body()!!.categories!!.size-1)
                         {
                             lis.add(CatShown(result.body()?.categories?.get(i)!!.strCategory,result.body()?.categories?.get(i)!!.strCategoryThumb))
-
                         }
                         displayCategoriesAdapter(lis)
                     } else {
@@ -93,8 +93,16 @@ class HomeFragment : Fragment() {
                 }
             })
             displayCuisineAdapter(lis)
-
-
+            binding.seeAllCategories.setOnClickListener {
+                var intent= Intent(requireContext(),SeeAllCatCus::class.java)
+                intent.putExtra(Constants.SEE_ALL_CAT_OR_CUS,"categories")
+                startActivity(intent)
+            }
+            binding.seeAllCuisine.setOnClickListener {
+                var intent= Intent(requireContext(),SeeAllCatCus::class.java)
+                intent.putExtra(Constants.SEE_ALL_CAT_OR_CUS,"cuisine")
+                startActivity(intent)
+            }
         } catch (e: Exception) {
             Log.d("rk", e.message.toString())
         }
@@ -128,12 +136,30 @@ class HomeFragment : Fragment() {
         binding.cuisineRV.visibility=View.VISIBLE
         binding.CatLL.visibility=View.VISIBLE
         binding.CusLL.visibility=View.VISIBLE
+        ItemAdapter.setOnClickListener(object :
+            CategoriesAdapter.OnClickListener {
+            override fun onClick(position: Int, model: CatShown) {
+                Log.d("rk",model.name.toString())
+                var intent=Intent(requireActivity(),DetailOfCatCus::class.java)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,model.name.toString())
+                startActivity(intent)
+            }
+        })
     }
     fun displayCuisineAdapter(lis:ArrayList<CusShown>)
     {
         binding.cuisineRV.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
         val ItemAdapter = CusianAdapter(lis,requireContext())
         binding.cuisineRV.adapter = ItemAdapter
+        ItemAdapter.setOnClickListener(object :
+            CusianAdapter.OnClickListener {
+            override fun onClick(position: Int, model: CusShown) {
+                Log.d("rk",model.name.toString())
+                var intent=Intent(requireActivity(),DetailOfCatCus::class.java)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,model.name.toString())
+                startActivity(intent)
+            }
+        })
     }
     fun populateData()
     {

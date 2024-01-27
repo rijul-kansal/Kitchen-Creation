@@ -40,7 +40,7 @@ class CategoriesAdapter(
     override fun getItemCount(): Int {
         return items.size
     }
-    fun setOnClickListener(onClickListener: OnClickListener) {
+    fun setOnClickListener(onClickListener: CategoriesAdapter.OnClickListener?) {
         this.onClickListener = onClickListener
     }
     interface OnClickListener {
