@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup
+import android.view.WindowManager
 import com.learning.zomatoclone.R
 
 open class BaseActivity : AppCompatActivity() {
@@ -16,12 +18,18 @@ open class BaseActivity : AppCompatActivity() {
         android.widget.Toast.makeText(constext,message, android.widget.Toast.LENGTH_LONG).show()
     }
 
-    fun showProgressBar(context: Context)
-    {
-        dialog= Dialog(context)
+    fun showProgressBar(context: Context) {
+        dialog = Dialog(context)
         dialog!!.setContentView(R.layout.progress_bar)
+        dialog!!.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent) // Optional: Set background to transparent
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
+
         dialog!!.show()
     }
+
     fun cancelProgressBar()
     {
         if(dialog!=null)

@@ -3,11 +3,13 @@ package com.learning.zomatoclone.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.learning.zomatoclone.Adapter.GridViewAdapter
 import com.learning.zomatoclone.Model.Categories.CatShown
+import com.learning.zomatoclone.Model.SingleCatOrCus.Meal
 import com.learning.zomatoclone.Utils.BaseActivity
 import com.learning.zomatoclone.Utils.Constants
 import com.learning.zomatoclone.ViewModel.ApiModel
@@ -19,6 +21,8 @@ class SeeAllCatCus : BaseActivity() {
     lateinit var viewModel: ApiModel
     lateinit var type:String
     var lis :ArrayList<CatShown> = ArrayList()
+    var arrlis =ArrayList<String>()
+    var lisDetail:ArrayList<Meal> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivitySeeAllCatCusBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -61,10 +65,6 @@ class SeeAllCatCus : BaseActivity() {
             populateData()
             binding.typeTv.text="Cuisine"
             displayResult(lis)
-        }
-        else
-        {
-
         }
     }
     fun displayResult(lis:ArrayList<CatShown>)

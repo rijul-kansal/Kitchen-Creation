@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.learning.zomatoclone.ViewModel.ApiModel
 import com.bumptech.glide.Glide
 import com.learning.zomatoclone.Activity.DetailOfCatCus
+import com.learning.zomatoclone.Activity.DishSpecification
 import com.learning.zomatoclone.Activity.SeeAllCatCus
 import com.learning.zomatoclone.Adapter.CategoriesAdapter
 import com.learning.zomatoclone.Adapter.CusianAdapter
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
     var dialog:Dialog?=null
     lateinit private var binding: FragmentHomeBinding
     lateinit var viewModel: ApiModel
+    lateinit var randomMealId:String
     var lis :ArrayList<CusShown> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         try {
+            binding.randomMealIV.setOnClickListener {
+                var intent= Intent(requireActivity(), DishSpecification::class.java)
+                intent.putExtra(Constants.ID,randomMealId)
+                startActivity(intent)
+            }
             populateData()
             binding.cuisineRV.visibility=View.GONE
             showProgressBar(requireContext())
@@ -56,6 +64,7 @@ class HomeFragment : Fragment() {
                             .placeholder(R.drawable.img)
                             .into(binding.randomMealIV)
                         binding.randomMealCardView.visibility=View.VISIBLE
+                        randomMealId= result.body()!!.meals?.get(0)?.idMeal ?: "0"
                     } else {
                         Log.d("rk", "body is null")
                     }
@@ -113,10 +122,15 @@ class HomeFragment : Fragment() {
     fun updateUI(message: String) {
         Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
     }
-    fun showProgressBar(context: Context)
-    {
-        dialog= Dialog(context)
+    fun showProgressBar(context: Context) {
+        dialog = Dialog(context)
         dialog!!.setContentView(R.layout.progress_bar)
+        dialog!!.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent) // Optional: Set background to transparent
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
+
         dialog!!.show()
     }
     fun cancelProgressBar()
