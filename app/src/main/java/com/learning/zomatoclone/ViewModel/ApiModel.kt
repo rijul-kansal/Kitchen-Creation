@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.learning.zomatoclone.API.ApiService
 import com.learning.zomatoclone.Fragments.HomeFragment
 import com.learning.zomatoclone.Model.Categories.CategoreisModel
+import com.learning.zomatoclone.Model.Dish.DishModel
 import com.learning.zomatoclone.Model.RandomMeal.RandomMealModel
 import com.learning.zomatoclone.Model.SingleCatOrCus.SingleCatOrCusModel
 import com.learning.zomatoclone.Utils.Constants
@@ -25,6 +26,7 @@ class ApiModel:ViewModel() {
     private var randomMealResult:MutableLiveData<Response<RandomMealModel>> = MutableLiveData()
     private var categoriesResult: MutableLiveData<Response<CategoreisModel>> = MutableLiveData()
     private var singleCatOrCusResult:MutableLiveData<Response<SingleCatOrCusModel>> = MutableLiveData()
+    private var dishResult:MutableLiveData<Response<DishModel>> = MutableLiveData()
     fun getRandomMeal(activity: Activity) {
         if (checkForInternet(activity)) {
             val matchApi = Constants.getInstance().create(ApiService::class.java)
@@ -101,9 +103,30 @@ class ApiModel:ViewModel() {
             HomeFragment().updateUI("Internet is not working")
         }
     }
+
+    fun getDish(activity: Activity,i:String) {
+        if (checkForInternet(activity)) {
+            val matchApi = Constants.getInstance().create(ApiService::class.java)
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val result = matchApi.getDish(i)
+                    withContext(Dispatchers.Main)
+                    {
+                        dishResult.value=result
+                    }
+                }catch (e: Exception) {
+                    Log.e("rijul", "Exception: ${e.message}")
+                }
+            }
+        }
+        else{
+            HomeFragment().updateUI("Internet is not working")
+        }
+    }
     fun observeGetRandomMeal():LiveData<Response<RandomMealModel>> = randomMealResult
     fun observeGetCategoriesMeal():LiveData<Response<CategoreisModel>> = categoriesResult
     fun observeSingleCatOrCus():LiveData<Response<SingleCatOrCusModel>> = singleCatOrCusResult
+    fun observeGetDish():LiveData<Response<DishModel>> = dishResult
     private fun checkForInternet(context: Activity): Boolean
     {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

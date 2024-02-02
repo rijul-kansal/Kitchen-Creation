@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eat Sure"
+        android:text="@string/app_name"
         android:textStyle="bold"
         android:textSize="56sp"
         android:textColor="@color/pure_orange"

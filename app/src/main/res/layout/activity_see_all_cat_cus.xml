@@ -28,7 +28,7 @@
         android:textColor="@color/white"
         android:gravity="center"/>
     <GridView
-        android:horizontalSpacing="6dp"
+        android:horizontalSpacing="16dp"
         android:verticalSpacing="6dp"
         android:id="@+id/gridView"
         android:layout_width="match_parent"
