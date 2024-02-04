@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.learning.zomatoclone.ViewModel.ApiModel
 import com.bumptech.glide.Glide
 import com.learning.zomatoclone.Activity.DetailOfCatCus
 import com.learning.zomatoclone.Activity.DishSpecification
+import com.learning.zomatoclone.Activity.SearchActivity
 import com.learning.zomatoclone.Activity.SeeAllCatCus
 import com.learning.zomatoclone.Adapter.CategoriesAdapter
 import com.learning.zomatoclone.Adapter.CusianAdapter
@@ -47,7 +49,7 @@ class HomeFragment : Fragment() {
         try {
             binding.randomMealIV.setOnClickListener {
                 var intent= Intent(requireActivity(), DishSpecification::class.java)
-                intent.putExtra(Constants.ID,randomMealId)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,randomMealId)
                 startActivity(intent)
             }
             populateData()
@@ -115,7 +117,10 @@ class HomeFragment : Fragment() {
         } catch (e: Exception) {
             Log.d("rk", e.message.toString())
         }
-
+        binding.searchView.setOnClickListener {
+                val intent = Intent(requireContext(), SearchActivity::class.java)
+                startActivity(intent)
+        }
         return binding.root
     }
 

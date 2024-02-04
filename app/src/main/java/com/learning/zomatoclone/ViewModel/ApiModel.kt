@@ -15,6 +15,7 @@ import com.learning.zomatoclone.Fragments.HomeFragment
 import com.learning.zomatoclone.Model.Categories.CategoreisModel
 import com.learning.zomatoclone.Model.Dish.DishModel
 import com.learning.zomatoclone.Model.RandomMeal.RandomMealModel
+import com.learning.zomatoclone.Model.Search.SearchModel
 import com.learning.zomatoclone.Model.SingleCatOrCus.SingleCatOrCusModel
 import com.learning.zomatoclone.Utils.Constants
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,8 @@ class ApiModel:ViewModel() {
     private var categoriesResult: MutableLiveData<Response<CategoreisModel>> = MutableLiveData()
     private var singleCatOrCusResult:MutableLiveData<Response<SingleCatOrCusModel>> = MutableLiveData()
     private var dishResult:MutableLiveData<Response<DishModel>> = MutableLiveData()
+    private var searchByLetterResult:MutableLiveData<Response<SearchModel>> = MutableLiveData()
+    private var searchByWordResult:MutableLiveData<Response<SearchModel>>  = MutableLiveData()
     fun getRandomMeal(activity: Activity) {
         if (checkForInternet(activity)) {
             val matchApi = Constants.getInstance().create(ApiService::class.java)
@@ -126,6 +129,8 @@ class ApiModel:ViewModel() {
     fun observeGetRandomMeal():LiveData<Response<RandomMealModel>> = randomMealResult
     fun observeGetCategoriesMeal():LiveData<Response<CategoreisModel>> = categoriesResult
     fun observeSingleCatOrCus():LiveData<Response<SingleCatOrCusModel>> = singleCatOrCusResult
+    fun observeSearchByLetter():LiveData<Response<SearchModel>> = searchByLetterResult
+    fun observeSearchByWord():LiveData<Response<SearchModel>> = searchByWordResult
     fun observeGetDish():LiveData<Response<DishModel>> = dishResult
     private fun checkForInternet(context: Activity): Boolean
     {
@@ -147,4 +152,42 @@ class ApiModel:ViewModel() {
         }
     }
 
+    fun searchItemByLetter(activity: Activity,f:String) {
+        if (checkForInternet(activity)) {
+            val matchApi = Constants.getInstance().create(ApiService::class.java)
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val result = matchApi.getSearchItemByLetter(f)
+                    withContext(Dispatchers.Main)
+                    {
+                        searchByLetterResult.value=result
+                    }
+                }catch (e: Exception) {
+                    Log.e("rijul", "Exception: ${e.message}")
+                }
+            }
+        }
+        else{
+            HomeFragment().updateUI("Internet is not working")
+        }
+    }
+    fun searchItemByWord(activity: Activity,s:String) {
+        if (checkForInternet(activity)) {
+            val matchApi = Constants.getInstance().create(ApiService::class.java)
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val result = matchApi.getSearchItemByWord(s)
+                    withContext(Dispatchers.Main)
+                    {
+                        searchByWordResult.value=result
+                    }
+                }catch (e: Exception) {
+                    Log.e("rijul", "Exception: ${e.message}")
+                }
+            }
+        }
+        else{
+            HomeFragment().updateUI("Internet is not working")
+        }
+    }
 }
