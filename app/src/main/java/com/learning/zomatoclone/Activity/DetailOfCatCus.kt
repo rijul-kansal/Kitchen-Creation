@@ -57,6 +57,8 @@ class DetailOfCatCus : BaseActivity() {
         binding.gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             var intent= Intent(this,DishSpecification::class.java)
             intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,lis[position].idMeal)
+            intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS_IMAGE,lis[position].strMealThumb)
+            intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS_Name,lis[position].strMeal)
             startActivity(intent)
         }
     }

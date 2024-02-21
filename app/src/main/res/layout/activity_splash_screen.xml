@@ -6,27 +6,56 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".UI.SplashScreen">
+
     <com.airbnb.lottie.LottieAnimationView
-        android:foregroundGravity="center"
+        android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:id="@+id/animation_view"
-        app:lottie_rawRes="@raw/splash_screen"
-        app:lottie_autoPlay="true"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:lottie_loop="true"/>
+        app:layout_constraintVertical_bias="0.498"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/book" />
+
     <TextView
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textStyle="bold"
-        android:textSize="56sp"
-        android:textColor="@color/pure_orange"
+        android:textSize="21sp"
+        android:textColor="@color/mainColour"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/animation_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Quote1"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:gravity="center" />
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_marginLeft="4dp"
+            android:layout_height="16dp"
+            android:src="@drawable/baseline_favorite_24"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

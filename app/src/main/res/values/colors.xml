@@ -12,4 +12,8 @@
     <color name="pure_orange">#ff7b00</color>
     <color name="light_orange">#ff9500</color>
     <color name="grey">#adb5bd</color>
+    <color name="light_grey">#e9ecef</color>
+    <color name="mainColour">#1a659e</color>
+
+
 </resources>

@@ -7,29 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".Activity.SignInActivity"
     android:background="@color/white">
-    <include
-        layout="@layout/circular_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="210dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
+            android:layout_marginBottom="128dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <com.airbnb.lottie.LottieAnimationView
                 android:foregroundGravity="center"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:id="@+id/animation_view"
                 app:lottie_rawRes="@raw/coffee_cup"
                 app:lottie_autoPlay="true"
@@ -41,7 +34,7 @@
                 android:text="Sign In!"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="32dp"
+                android:textSize="28sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -51,16 +44,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:hint="Enter your email"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="16dp"
             android:background="#f8f9fa">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:hint="Enter your email"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -70,34 +63,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:hint="Enter your password"
-            android:layout_marginEnd="12dp"
+            app:passwordToggleEnabled="true"
+            android:layout_marginEnd="16dp"
             android:background="#f8f9fa">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:hint="Enter your password"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
-
         <TextView
             android:id="@+id/Sign_In_Btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
             android:background="@drawable/button_bg"
             android:gravity="center"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:text="Sign In"
-            android:textColor="@color/white"
-            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

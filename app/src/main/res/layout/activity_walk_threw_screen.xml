@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#00000000"
         android:text="Skip"
-        android:textColor="@color/pure_orange"
+        android:textColor="@color/mainColour"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/baseline_keyboard_arrow_left_24"
-        android:textColor="@color/pure_orange"
-        android:textSize="40dp"
+        android:textColor="@color/mainColour"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -42,8 +42,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/baseline_keyboard_arrow_right_24"
-        android:textColor="@color/pure_orange"
-        android:textSize="40dp"
+        android:textColor="@color/mainColour"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -56,8 +56,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/slideViewPager">
-
-
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

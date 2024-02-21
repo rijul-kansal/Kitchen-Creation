@@ -1,60 +1,96 @@
 package com.learning.zomatoclone.Fragments
 
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.learning.zomatoclone.Activity.DishSpecification
+import com.learning.zomatoclone.Adapter.FavRecipeAdapter
+import com.learning.zomatoclone.Model.FavRecipeModel
 import com.learning.zomatoclone.R
+import com.learning.zomatoclone.Utils.Constants
+import com.learning.zomatoclone.ViewModel.FireStoreStorage
+import com.learning.zomatoclone.databinding.FragmentFavBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    var dialog: Dialog? = null
+    lateinit private var binding: FragmentFavBinding
+    lateinit var viewModel: FireStoreStorage
+    lateinit var list:List<FavRecipeModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        viewModel = ViewModelProvider(this)[FireStoreStorage::class.java]
+        binding = FragmentFavBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fav, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        showProgressBar(requireContext())
+        viewModel.getFavRecipeDetails()
+        viewModel.observergetFavRecipe1().observe(requireActivity(), Observer {
+            cancelProgressBar()
+            Log.d("rk",it)
+            if(it=="item present")
+            {
+                viewModel.observergetFavRecipe().observe(requireActivity(), Observer {result->
+                    Log.d("rk",result.toString())
+                    try {
+                        displayResult(result as ArrayList<FavRecipeModel>)
+                    }catch (e:Exception)
+                    {
+                        Log.d("rk",e.message.toString())
+                    }
+                })
             }
+        })
+        return binding.root
+    }
+    fun displayResult(lis:ArrayList<FavRecipeModel>)
+    {
+        binding.recycleFav.layoutManager = LinearLayoutManager(requireContext())
+        val ItemAdapter = FavRecipeAdapter(lis,requireContext())
+        binding.recycleFav.adapter = ItemAdapter
+        ItemAdapter.setOnClickListener(object :
+            FavRecipeAdapter.OnClickListener {
+            override fun onClick(position: Int, model: FavRecipeModel) {
+                Log.d("rk",model.name.toString())
+                var intent= Intent(requireActivity(), DishSpecification::class.java)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,lis[position].id)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS_IMAGE,lis[position].imagr)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS_Name,lis[position].name)
+                startActivity(intent)
+            }
+        })
+    }
+    fun showProgressBar(context: Context) {
+        dialog = Dialog(context)
+        dialog!!.setContentView(R.layout.progress_bar)
+        dialog!!.window?.apply {
+            setBackgroundDrawableResource(android.R.color.transparent) // Optional: Set background to transparent
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
+
+        dialog!!.show()
+    }
+    fun cancelProgressBar()
+    {
+        if(dialog!=null)
+        {
+            dialog!!.dismiss()
+            dialog=null
+        }
     }
 }

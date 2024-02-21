@@ -25,8 +25,8 @@
                 android:padding="8dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:src="@drawable/img" />
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -36,31 +36,31 @@
                         android:id="@+id/userNameTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="4dp"
                         android:text="Hi ,User!"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="4dp"
                         android:text="check amazing recipes"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
             </LinearLayout>
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="28dp"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="12dp">
+                app:cardElevation="16dp">
                 <LinearLayout
                     android:layout_width="370dp"
                     android:layout_height="match_parent"
@@ -102,11 +102,11 @@
             tools:visibility="visible"
             android:id="@+id/randomMealCardView"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="12dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp">
+            android:layout_height="230dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="16dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp">
             <ImageView
                 android:id="@+id/randomMealIV"
                 android:layout_width="match_parent"
@@ -115,8 +115,9 @@
                 android:src="@drawable/img_1" />
         </com.google.android.material.card.MaterialCardView>
         <LinearLayout
-            android:padding="8dp"
-            android:layout_marginTop="12dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/randomMealCardView"
@@ -137,7 +138,7 @@
                     android:text="Categories"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="24dp"/>
+                    android:textSize="16sp"/>
                 <TextView
                     android:id="@+id/seeAllCategories"
                     android:layout_weight="1"
@@ -145,8 +146,8 @@
                     android:layout_height="wrap_content"
                     android:text="See all"
                     android:gravity="right"
-                    android:textColor="@color/pure_orange"
-                    android:textSize="16dp"/>
+                    android:textColor="@color/mainColour"
+                    android:textSize="16sp"/>
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoriesRV"
@@ -154,7 +155,8 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
-            android:padding="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:layout_marginTop="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -176,7 +178,7 @@
                     android:text="Cuisine"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="24dp"/>
+                    android:textSize="16sp"/>
                 <TextView
                     android:id="@+id/seeAllCuisine"
                     android:layout_weight="1"
@@ -184,8 +186,8 @@
                     android:layout_height="wrap_content"
                     android:text="See all"
                     android:gravity="right"
-                    android:textColor="@color/pure_orange"
-                    android:textSize="16dp"/>
+                    android:textColor="@color/mainColour"
+                    android:textSize="16sp"/>
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:visibility="invisible"

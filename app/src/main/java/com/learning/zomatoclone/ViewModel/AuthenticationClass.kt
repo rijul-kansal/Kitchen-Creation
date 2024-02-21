@@ -70,4 +70,13 @@ class AuthenticationClass():ViewModel() {
     fun observerTaskResult():LiveData<Task<AuthResult>> = signUpResult
     fun observerTaskResultLogin():LiveData<Task<AuthResult>> = signInResult
     fun observerVerifiedEmail():LiveData<Task<Void>> = verifyTask
+
+    fun getUserId():String
+    {
+        if(mAuth.currentUser!=null)
+        {
+            return mAuth.currentUser!!.uid
+        }
+        return ""
+    }
 }

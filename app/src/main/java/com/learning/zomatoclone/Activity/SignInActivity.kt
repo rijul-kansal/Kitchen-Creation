@@ -13,11 +13,13 @@ import com.learning.zomatoclone.databinding.ActivitySignInBinding
 import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
+import com.learning.zomatoclone.ViewModel.FireStoreStorage
 
 class SignInActivity : BaseActivity() {
     lateinit var binding:ActivitySignInBinding
 
     lateinit var viewModel: AuthenticationClass
+    lateinit var viewModel1: FireStoreStorage
     lateinit var email:String
     lateinit var password:String
     lateinit var user:FirebaseAuth
@@ -28,6 +30,7 @@ class SignInActivity : BaseActivity() {
         setContentView(binding.root)
         charByCharDisplay(binding.signInTv.text.toString(),binding.signInTv)
         viewModel= ViewModelProvider(this)[AuthenticationClass::class.java]
+        viewModel1= ViewModelProvider(this)[FireStoreStorage::class.java]
         try {
             email=""
             password=""
@@ -101,6 +104,7 @@ class SignInActivity : BaseActivity() {
                 if(task.isSuccessful)
                 {
                     Toast(this,"user Login In successfully")
+                    viewModel1.addFavRecipeIntoDB(mapOf("Hi" to "User"))
                     startActivity(Intent(this,MainActivity::class.java))
                     finish()
                 }
@@ -114,10 +118,6 @@ class SignInActivity : BaseActivity() {
         {
             Log.e("rk",e.message.toString())
         }
-    }
-    fun isEmailValid(email: String): Boolean {
-        val emailRegex = Regex("^\\S+@\\S+\\.\\S+\$")
-        return emailRegex.matches(email)
     }
     fun valid():Boolean
     {

@@ -31,21 +31,21 @@ class SignUpActivity : BaseActivity() {
             // redirect to login page
             binding.LoginPageRedirect.setOnClickListener {
                 startActivity(Intent(this,SignInActivity::class.java))
-                finish()
             }
             // sign up
             binding.SignUpBtn.setOnClickListener{
-                 showProgressBar(this)
                  email=binding.etEmail.text.toString()
                  password=binding.etPassword.text.toString()
                  name=binding.etName.text.toString()
-                if(valid())
-                    try {
-                        viewModel.SignUp(name,this@SignUpActivity, email, password)
-                    }catch (e:Exception)
-                    {
-                        Log.d("rk",e.message.toString())
-                    }
+                 if(valid())
+                 {
+                     try {
+                         showProgressBar(this)
+                         viewModel.SignUp(name,this@SignUpActivity, email, password)
+                     }catch (e:Exception) {
+                         Log.d("rk",e.message.toString())
+                     }
+                 }
 
             }
             // result of sign up if successful the call sign in
@@ -89,7 +89,7 @@ class SignUpActivity : BaseActivity() {
         if(email.length>0 && password.length>0 && name.length>0)
         {
             if(isEmailValid(email) && password.length>=6) {
-                return true;
+                return true
             }
             else if(password.length<6)
             {

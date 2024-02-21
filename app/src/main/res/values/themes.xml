@@ -9,8 +9,18 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/mainColour</item>
+        <item name="colorPrimaryDark">@color/mainColour</item>
+        <item name="colorAccent">@color/mainColour</item>
+    </style>
+    <style name="AboveAppBarColourWhite" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/light_orange</item>
-        <item name="colorAccent">@color/light_orange</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+    <style name="AboveAppBarColourlightWhite" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/mainColour</item>
+        <item name="colorPrimaryDark">@color/light_grey</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 </resources>
