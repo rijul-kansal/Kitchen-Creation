@@ -68,6 +68,7 @@ class SignUpActivity : BaseActivity() {
                     var intent=Intent(this,SignInActivity::class.java)
                     intent.putExtra(Constants.EMAIL,email)
                     intent.putExtra(Constants.PASSWORD,password)
+                    intent.putExtra(Constants.NAME,name)
                     startActivity(intent)
                 }
                 else

@@ -10,9 +10,10 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.learning.zomatoclone.Model.FavRecipeModel
+import com.learning.zomatoclone.Model.InterestModel
+import com.learning.zomatoclone.Model.UserProfileModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.http.Url
 
 class FireStoreStorage: ViewModel() {
     val db = Firebase.firestore
@@ -21,6 +22,8 @@ class FireStoreStorage: ViewModel() {
     private var checkMealResult:MutableLiveData<Boolean> = MutableLiveData()
     private var getFavRecipeResult:MutableLiveData<List<FavRecipeModel>>  =  MutableLiveData()
     private var getFavRecipeResult1:MutableLiveData<String>  =  MutableLiveData()
+    private var addUserProfileResult:MutableLiveData<String> = MutableLiveData()
+    private var getUserProfileResult:MutableLiveData<UserProfileModel> = MutableLiveData()
     fun addFavRecipeIntoDB(value:Map<String,String>)
     {
         viewModelScope.launch(Dispatchers.IO) {
@@ -139,10 +142,67 @@ class FireStoreStorage: ViewModel() {
                 }
         }
     }
+    fun getUserProfileDetails() {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.collection("UserProfile").document(AuthenticationClass().getUserId())
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        try {
+                            getUserProfileResult.value= document.toObject(UserProfileModel::class.java)
+                        }catch (e:Exception)
+                        {
+                            Log.d("rk",e.message.toString())
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                }
+        }
+    }
+    fun addUserPersonalDataIntoDB(value:UserProfileModel)
+    {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.collection("UserProfile").document(AuthenticationClass().getUserId())
+                .set(value, SetOptions.merge())
+                .addOnSuccessListener { it->
+                    addUserProfileResult.value="name is added into Db"
+                }
+                .addOnFailureListener {
+                    addUserProfileResult.value= it.toString()
+                }
+        }
+    }
+    fun updateUserPersonalDataIntoDB(value:HashMap<String,String>)
+    {
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            val washingtonRef = db.collection("UserProfile").document(AuthenticationClass().getUserId())
+            washingtonRef
+                .update(value as Map<String, String>)
+                .addOnSuccessListener { Log.d("rk","Successfull updated image") }
+                .addOnFailureListener { e->Log.d("rk",e.message.toString())}
+        }
+
+    }
+    fun updateUserPersonalDataIntoDB1(value:HashMap<String,ArrayList<InterestModel>>)
+    {
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            val washingtonRef = db.collection("UserProfile").document(AuthenticationClass().getUserId())
+            washingtonRef
+                .update(value as Map<String, String>)
+                .addOnSuccessListener { Log.d("rk","Successfull updated image") }
+                .addOnFailureListener { e->Log.d("rk",e.message.toString())}
+        }
+
+    }
     fun observerAddRecipeData2():LiveData<String> = addRecipeResult
     fun observerGetMeal():LiveData<Boolean> = checkMealResult
     fun observerDeleteRecipeData():LiveData<String> = deleteRecipeResult
 
     fun observergetFavRecipe():LiveData<List<FavRecipeModel>> = getFavRecipeResult
     fun observergetFavRecipe1():LiveData<String> = getFavRecipeResult1
+
+    fun observeGetUserProfileDetails():LiveData<UserProfileModel> = getUserProfileResult
 }

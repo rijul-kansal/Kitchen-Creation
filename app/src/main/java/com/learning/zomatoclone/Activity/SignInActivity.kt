@@ -1,5 +1,6 @@
 package com.learning.zomatoclone.Activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.learning.zomatoclone.databinding.ActivitySignInBinding
 import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
+import com.learning.zomatoclone.Model.UserProfileModel
 import com.learning.zomatoclone.ViewModel.FireStoreStorage
 
 class SignInActivity : BaseActivity() {
@@ -22,8 +24,10 @@ class SignInActivity : BaseActivity() {
     lateinit var viewModel1: FireStoreStorage
     lateinit var email:String
     lateinit var password:String
+    lateinit var name:String
     lateinit var user:FirebaseAuth
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivitySignInBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -38,7 +42,11 @@ class SignInActivity : BaseActivity() {
             password=intent.getStringExtra(Constants.PASSWORD).toString()
             if(intent.hasExtra(Constants.EMAIL))
             email=intent.getStringExtra(Constants.EMAIL).toString()
-
+            if(intent.hasExtra(Constants.NAME))
+            {
+                name=intent.getStringExtra(Constants.NAME).toString()
+                viewModel1.addUserPersonalDataIntoDB(UserProfileModel(name=name ,email=email))
+            }
             binding.etEmail.setText(email)
             binding.etPassword.setText(password)
 
@@ -105,7 +113,7 @@ class SignInActivity : BaseActivity() {
                 {
                     Toast(this,"user Login In successfully")
                     viewModel1.addFavRecipeIntoDB(mapOf("Hi" to "User"))
-                    startActivity(Intent(this,MainActivity::class.java))
+                    startActivity(Intent(this,InterestActivity::class.java))
                     finish()
                 }
                 else

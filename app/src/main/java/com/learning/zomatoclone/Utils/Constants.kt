@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Constants {
-
+    const val NAME="name"
     const val ID="id"
     const val EMAIL="email"
     const val PASSWORD="password"
@@ -13,7 +13,7 @@ object Constants {
     const val DETAILS_OF_CAT_OR_CUS_IMAGE="detailofcatorcusimage"
     const val DETAILS_OF_CAT_OR_CUS_Name="detailofcatorcusname"
     const val BASE_URL= "https://www.themealdb.com"
-
+    const val SELECT_PICTURE=200
     fun getInstance() : Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

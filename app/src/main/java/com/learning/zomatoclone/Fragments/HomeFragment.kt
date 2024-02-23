@@ -26,6 +26,7 @@ import com.learning.zomatoclone.Model.Categories.CatShown
 import com.learning.zomatoclone.Model.Cuisine.CusShown
 import com.learning.zomatoclone.R
 import com.learning.zomatoclone.Utils.Constants
+import com.learning.zomatoclone.ViewModel.FireStoreStorage
 import com.learning.zomatoclone.databinding.FragmentHomeBinding
 
 
@@ -33,11 +34,13 @@ class HomeFragment : Fragment() {
     var dialog:Dialog?=null
     lateinit private var binding: FragmentHomeBinding
     lateinit var viewModel: ApiModel
+    lateinit var viewModel1:FireStoreStorage
     lateinit var randomMealId:String
     var lis :ArrayList<CusShown> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel= ViewModelProvider(this)[ApiModel::class.java]
+        viewModel1= ViewModelProvider(this)[FireStoreStorage::class.java]
         binding = FragmentHomeBinding.inflate(layoutInflater)
     }
 
@@ -54,6 +57,17 @@ class HomeFragment : Fragment() {
             populateData()
             binding.cuisineRV.visibility=View.GONE
             showProgressBar(requireContext())
+            viewModel1.getUserProfileDetails()
+            viewModel1.observeGetUserProfileDetails().observe(viewLifecycleOwner, Observer {
+                if(it.image!=null) {
+                    Glide
+                        .with(this)
+                        .load(it.image)
+                        .centerCrop()
+                        .placeholder(R.drawable.img)
+                        .into(binding.profileImage)
+                }
+            })
             viewModel.getRandomMeal(requireActivity())
             viewModel.observeGetRandomMeal().observe(viewLifecycleOwner, Observer { result ->
                 if (result.isSuccessful) {
