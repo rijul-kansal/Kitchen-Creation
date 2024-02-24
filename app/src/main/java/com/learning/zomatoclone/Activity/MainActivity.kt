@@ -21,6 +21,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
 
         replaceFragment(HomeFragment())
+
 //        binding.bottomNavigationView.background = null
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
