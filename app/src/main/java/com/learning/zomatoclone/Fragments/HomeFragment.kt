@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
     lateinit var viewModel: ApiModel
     lateinit var viewModel1:FireStoreStorage
     lateinit var randomMealId:String
+    lateinit var imageurl:String
     var lis :ArrayList<CusShown> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +53,8 @@ class HomeFragment : Fragment() {
             binding.randomMealIV.setOnClickListener {
                 var intent= Intent(requireActivity(), DishSpecification::class.java)
                 intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,randomMealId)
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS_IMAGE,imageurl)
+
                 startActivity(intent)
             }
             populateData()
@@ -59,19 +62,25 @@ class HomeFragment : Fragment() {
             showProgressBar(requireContext())
             viewModel1.getUserProfileDetails()
             viewModel1.observeGetUserProfileDetails().observe(viewLifecycleOwner, Observer {
-                if(it.image!=null) {
-                    Glide
-                        .with(this)
-                        .load(it.image)
-                        .centerCrop()
-                        .placeholder(R.drawable.img)
-                        .into(binding.profileImage)
+                if(it !=null)
+                {
+                    if(it.image!=null) {
+                        Glide
+                            .with(this)
+                            .load(it.image)
+                            .centerCrop()
+                            .placeholder(R.drawable.img)
+                            .into(binding.profileImage)
+                    }
+                    binding.userNameTv.text= "Hi,${it.name.toString()}"
                 }
+
             })
             viewModel.getRandomMeal(requireActivity())
             viewModel.observeGetRandomMeal().observe(viewLifecycleOwner, Observer { result ->
                 if (result.isSuccessful) {
                     if (result.body() != null) {
+                        imageurl =result.body()!!.meals?.get(0)?.strMealThumb.toString()
                         Glide
                             .with(requireContext())
                             .load(result.body()!!.meals?.get(0)?.strMealThumb)

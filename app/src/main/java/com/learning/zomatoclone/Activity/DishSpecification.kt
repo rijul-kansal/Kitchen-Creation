@@ -1,5 +1,7 @@
 package com.learning.zomatoclone.Activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.learning.zomatoclone.Adapter.GridViewAdapterDishSpecification
+import com.learning.zomatoclone.Adapter.GridViewDishSpecification
 import com.learning.zomatoclone.Model.Dish.DishModel
 import com.learning.zomatoclone.Model.FavRecipeModel
 import com.learning.zomatoclone.R
@@ -18,6 +20,7 @@ import com.learning.zomatoclone.ViewModel.FireStoreStorage
 import com.learning.zomatoclone.databinding.ActivityDishSpecificationBinding
 import retrofit2.Response
 
+
 class DishSpecification : BaseActivity() {
     lateinit var mealId:String
     lateinit var binding:ActivityDishSpecificationBinding
@@ -27,6 +30,7 @@ class DishSpecification : BaseActivity() {
     lateinit var mealName:String
     lateinit var mealCat:String
     lateinit var mealArea:String
+    lateinit var youtubeLink:String
     var flag=0
     var flag1=0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +42,7 @@ class DishSpecification : BaseActivity() {
         mealId=intent.getStringExtra(Constants.DETAILS_OF_CAT_OR_CUS).toString()
         mealUrl=intent.getStringExtra(Constants.DETAILS_OF_CAT_OR_CUS_IMAGE).toString()
         mealName=intent.getStringExtra(Constants.DETAILS_OF_CAT_OR_CUS_Name).toString()
+
         Log.d("rk",mealId)
         Log.d("rk",mealUrl)
         Log.d("rk",mealName)
@@ -119,7 +124,10 @@ class DishSpecification : BaseActivity() {
         {
             Log.d("rk",e.message.toString())
         }
-
+        binding.youtubeLink.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
+            startActivity(browserIntent)
+        }
     }
 
 
@@ -129,6 +137,7 @@ class DishSpecification : BaseActivity() {
         mealArea= result.body()!!.meals?.get(0)!!.strArea.toString()
         binding.typeTv.text= result.body()!!.meals?.get(0)!!.strCategory
         binding.nameOfDish.text= result.body()!!.meals?.get(0)!!.strMeal
+        youtubeLink=result.body()!!.meals?.get(0)!!.strYoutube.toString()
         Glide
             .with(this@DishSpecification)
             .load(result.body()!!.meals?.get(0)?.strMealThumb)
@@ -138,7 +147,7 @@ class DishSpecification : BaseActivity() {
         val ins: List<String> = result.body()!!.meals?.get(0)!!.strInstructions!!.split("\r\n")
         Log.d("rk",ins.toString())
         binding.RecycleView1.layoutManager = LinearLayoutManager(this@DishSpecification)
-        val ItemAdapter = GridViewAdapterDishSpecification(ins,this@DishSpecification)
+        val ItemAdapter = GridViewDishSpecification(ins,this@DishSpecification)
         binding.RecycleView1.adapter = ItemAdapter
     }
 

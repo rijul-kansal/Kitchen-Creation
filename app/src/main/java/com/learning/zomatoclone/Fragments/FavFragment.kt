@@ -44,15 +44,24 @@ class FavFragment : Fragment() {
             Log.d("rk",it)
             if(it=="item present")
             {
+                binding.animationView.visibility=View.GONE
                 viewModel.observergetFavRecipe().observe(requireActivity(), Observer {result->
                     Log.d("rk",result.toString())
                     try {
+                        if(result.size==0)
+                        {
+                            binding.animationView.visibility=View.VISIBLE
+                        }
                         displayResult(result as ArrayList<FavRecipeModel>)
                     }catch (e:Exception)
                     {
                         Log.d("rk",e.message.toString())
                     }
                 })
+            }
+            else
+            {
+                binding.animationView.visibility=View.VISIBLE
             }
         })
         return binding.root

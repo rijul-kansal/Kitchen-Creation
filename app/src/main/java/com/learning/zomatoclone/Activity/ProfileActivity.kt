@@ -93,7 +93,6 @@ class ProfileActivity : BaseActivity() {
         }
 
         binding.updateBtn.setOnClickListener {
-            showProgressBar(this)
             val newName=binding.etName.text.toString()
             val newEmail=binding.etEmail.text.toString()
             val newMobileNumber=binding.etMobileNo.text.toString()
@@ -115,11 +114,12 @@ class ProfileActivity : BaseActivity() {
             }
             if(newMobileNumber!=mobileNumber)
             {
+                 showProgressBar(this)
                  var map= HashMap<String,String>();
                  map["mobileNumber"]=newMobileNumber
                  viewModel.updateUserPersonalDataIntoDB(map)
+                 cancelProgressBar()
             }
-            cancelProgressBar()
             Toast(this,"Updated Successfully")
         }
     }

@@ -15,14 +15,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_marginBottom="128dp"
+            android:layout_marginBottom="110dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <com.airbnb.lottie.LottieAnimationView
                 android:foregroundGravity="center"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:id="@+id/animation_view"
                 app:lottie_rawRes="@raw/coffee_cup"
                 app:lottie_autoPlay="true"
@@ -34,7 +34,7 @@
                 android:text="Sign Up!"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -90,7 +90,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:hint="Enter your password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:layout_width="match_parent"

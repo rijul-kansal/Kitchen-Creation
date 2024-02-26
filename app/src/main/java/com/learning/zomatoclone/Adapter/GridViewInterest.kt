@@ -2,7 +2,6 @@ package com.learning.zomatoclone.Adapter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.core.content.ContextCompat
 import com.learning.zomatoclone.Model.InterestModel
 import com.learning.zomatoclone.R
 
-class GridViewAdapterInterest(
+class GridViewInterest(
     private val context: Context,
     private val lis: ArrayList<InterestModel>
 ) :

@@ -24,6 +24,8 @@ class SignUpActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         charByCharDisplay(binding.signUpTv.text.toString(),binding.signUpTv)
+
+
         try {
             // connecting view model
             viewModel=ViewModelProvider(this)[AuthenticationClass::class.java]
@@ -31,6 +33,7 @@ class SignUpActivity : BaseActivity() {
             // redirect to login page
             binding.LoginPageRedirect.setOnClickListener {
                 startActivity(Intent(this,SignInActivity::class.java))
+                finish()
             }
             // sign up
             binding.SignUpBtn.setOnClickListener{
@@ -70,6 +73,7 @@ class SignUpActivity : BaseActivity() {
                     intent.putExtra(Constants.PASSWORD,password)
                     intent.putExtra(Constants.NAME,name)
                     startActivity(intent)
+                    finish()
                 }
                 else
                 {

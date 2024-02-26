@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.learning.zomatoclone.Adapter.GridViewAdapter2
+import com.learning.zomatoclone.Adapter.DetailCatCusGridView
 import com.learning.zomatoclone.Model.SingleCatOrCus.Meal
 import com.learning.zomatoclone.Utils.BaseActivity
 import com.learning.zomatoclone.Utils.Constants
@@ -18,12 +18,15 @@ class DetailOfCatCus : BaseActivity() {
     var type:String=""
     lateinit var viewModel: ApiModel
     var arrlis =ArrayList<String>()
-      var lis:ArrayList<Meal> = ArrayList()
+    var lis:ArrayList<Meal> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityDetailOfCatCusBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+
         viewModel= ViewModelProvider(this)[ApiModel::class.java]
+
         type=intent.getStringExtra(Constants.DETAILS_OF_CAT_OR_CUS).toString()
         Log.d("rk",type)
         binding.typeTv.text=type
@@ -52,7 +55,7 @@ class DetailOfCatCus : BaseActivity() {
     fun displayResult(lis:ArrayList<Meal>)
     {
         cancelProgressBar()
-        val mainAdapter = GridViewAdapter2(this@DetailOfCatCus, lis)
+        val mainAdapter = DetailCatCusGridView(this@DetailOfCatCus, lis)
         binding.gridView.adapter = mainAdapter
         binding.gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             var intent= Intent(this,DishSpecification::class.java)

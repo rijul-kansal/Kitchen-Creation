@@ -4,14 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.learning.zomatoclone.databinding.CusianLayoutBinding
 import com.learning.zomatoclone.databinding.SimpleListItem1Binding
 
-class GridViewAdapterDishSpecification(
+class GridViewDishSpecification(
     private val items: List<String>,
     private val context: Context
 ) :
-    RecyclerView.Adapter<GridViewAdapterDishSpecification.ViewHolder>() {
+    RecyclerView.Adapter<GridViewDishSpecification.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             SimpleListItem1Binding.inflate(

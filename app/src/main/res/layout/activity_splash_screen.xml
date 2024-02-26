@@ -29,6 +29,7 @@
         android:text="@string/app_name"
         android:textStyle="bold"
         android:textSize="21sp"
+        android:fontFamily="@font/mercy_christole"
         android:textColor="@color/mainColour"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/animation_view"

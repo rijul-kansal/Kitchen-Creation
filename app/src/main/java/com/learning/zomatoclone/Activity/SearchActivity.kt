@@ -69,6 +69,7 @@ class SearchActivity : AppCompatActivity() {
             override fun onClick(position: Int, model: Meal) {
                 var intent= Intent(this@SearchActivity,DishSpecification::class.java)
                 intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS,model.idMeal.toString())
+                intent.putExtra(Constants.DETAILS_OF_CAT_OR_CUS_IMAGE,model.strMealThumb.toString())
                 startActivity(intent)
             }
         })

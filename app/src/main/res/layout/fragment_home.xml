@@ -125,6 +125,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:id="@+id/CatLL"
                 android:visibility="invisible"
                 tools:visibility="visible"
@@ -165,6 +167,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:id="@+id/CusLL"
                 android:visibility="invisible"
                 tools:visibility="visible"

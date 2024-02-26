@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:text=" Select the food categories that best match your interests."
             android:gravity="center"
-            android:textSize="24sp"
-            android:fontFamily="@font/carnevalee_freakshow"
+            android:textSize="20sp"
+            android:fontFamily="@font/mercy_christole"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <GridView

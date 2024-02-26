@@ -32,9 +32,13 @@ class SignInActivity : BaseActivity() {
         binding= ActivitySignInBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         charByCharDisplay(binding.signInTv.text.toString(),binding.signInTv)
+
         viewModel= ViewModelProvider(this)[AuthenticationClass::class.java]
         viewModel1= ViewModelProvider(this)[FireStoreStorage::class.java]
+
+
         try {
             email=""
             password=""

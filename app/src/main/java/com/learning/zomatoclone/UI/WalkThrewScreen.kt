@@ -5,18 +5,19 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.learning.zomatoclone.R
-import com.learning.zomatoclone.Activity.SignUpActivity
 import com.learning.zomatoclone.Adapter.ViewPagerAdapter
 import com.learning.zomatoclone.databinding.ActivityWalkThrewScreenBinding
 
 class WalkThrewScreen : AppCompatActivity() {
+
     lateinit var binding:ActivityWalkThrewScreenBinding
+
     private lateinit var dots: ArrayList<TextView>
+
     lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityWalkThrewScreenBinding.inflate(layoutInflater)
@@ -25,13 +26,11 @@ class WalkThrewScreen : AppCompatActivity() {
 
         try {
             dots = ArrayList()
-
             binding.backbtn.setOnClickListener {
                 if (getItem(0) > 0) {
                     binding.slideViewPager.setCurrentItem(getItem(-1), true)
                 }
             }
-
             binding.frontbtn.setOnClickListener {
                 if (getItem(0) < 2) {
                     binding.slideViewPager.setCurrentItem(getItem(1), true)
@@ -41,19 +40,14 @@ class WalkThrewScreen : AppCompatActivity() {
                     finish()
                 }
             }
-
             binding.skipButton.setOnClickListener {
                 val i = Intent(this@WalkThrewScreen, IntroActivity::class.java)
                 startActivity(i)
                 finish()
             }
-
-
             viewPagerAdapter = ViewPagerAdapter(this)
             binding.slideViewPager.adapter = viewPagerAdapter
-
             setUpIndicator(0)
-
             binding.slideViewPager.addOnPageChangeListener(viewListener)
         } catch (e: Exception) {
             Log.d("rk", e.message.toString())
@@ -63,7 +57,6 @@ class WalkThrewScreen : AppCompatActivity() {
     private fun setUpIndicator(position: Int) {
         dots.clear()
         binding.indicatorLayout.removeAllViews()
-
         for (i in 0..2) {
             dots.add(TextView(this))
             dots[i].text = Html.fromHtml("&#8226;")
@@ -76,7 +69,6 @@ class WalkThrewScreen : AppCompatActivity() {
             )
             binding.indicatorLayout.addView(dots[i])
         }
-
         if (dots.isNotEmpty()) {
             dots[position].setTextColor(resources.getColor(R.color.mainColour, applicationContext.theme))
         }
@@ -84,7 +76,6 @@ class WalkThrewScreen : AppCompatActivity() {
 
     private val viewListener = object : ViewPager.OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
         override fun onPageSelected(position: Int) {
             setUpIndicator(position)
 
@@ -94,7 +85,6 @@ class WalkThrewScreen : AppCompatActivity() {
                 binding.backbtn.visibility = View.INVISIBLE
             }
         }
-
         override fun onPageScrollStateChanged(state: Int) {}
     }
 

@@ -17,7 +17,7 @@
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:background="@drawable/rectangle_background2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -33,7 +33,7 @@
             android:text="Favourite"
             android:textStyle="bold"
             android:textSize="32sp"
-            android:fontFamily="@font/carnevalee_freakshow"
+            android:fontFamily="@font/mercy_christole"
             android:textColor="@color/white"
             android:gravity="center"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -43,4 +43,14 @@
         android:id="@+id/recycleFav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:visibility="gone"
+        android:layout_marginTop="200dp"
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:foregroundGravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/empty" />
 </FrameLayout>

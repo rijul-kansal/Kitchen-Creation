@@ -8,11 +8,10 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.learning.zomatoclone.Model.Categories.CatShown
 import com.learning.zomatoclone.Model.SingleCatOrCus.Meal
 import com.learning.zomatoclone.R
 
-internal class GridViewAdapter2(
+internal class DetailCatCusGridView(
     private val context: Context,
     private val lis: ArrayList<Meal>
 ) :

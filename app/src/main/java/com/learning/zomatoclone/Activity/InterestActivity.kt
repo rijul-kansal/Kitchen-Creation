@@ -9,7 +9,7 @@ import android.widget.AdapterView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.learning.zomatoclone.Adapter.GridViewAdapterInterest
+import com.learning.zomatoclone.Adapter.GridViewInterest
 import com.learning.zomatoclone.Model.InterestModel
 import com.learning.zomatoclone.Utils.BaseActivity
 import com.learning.zomatoclone.Utils.Constants
@@ -25,7 +25,7 @@ class InterestActivity : BaseActivity() {
     var set:HashSet<String> = HashSet()
     var selectedList:ArrayList<InterestModel> = ArrayList()
     lateinit var  interestValue:String
-    lateinit var mainAdapter :GridViewAdapterInterest
+    lateinit var mainAdapter :GridViewInterest
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityIntreastBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -39,6 +39,17 @@ class InterestActivity : BaseActivity() {
         }
         showProgressBar(this)
         viewModel1.getUserProfileDetails()
+        if(interestValue == "")
+        {
+            viewModel1.observeGetUserProfileDetails().observe(this, Observer {
+                Log.d("rk",it.toString())
+                if(it.interests!=null)
+                {
+                    startActivity(Intent(this,MainActivity::class.java))
+                    finish()
+                }
+            })
+        }
         viewModel.getCategoriesMeal(this@InterestActivity)
         viewModel.observeGetCategoriesMeal().observe(this, Observer {
             for(i in 0..it.body()!!.categories!!.size-1)
@@ -67,14 +78,6 @@ class InterestActivity : BaseActivity() {
             }
             else
             {
-                viewModel1.observeGetUserProfileDetails().observe(this, Observer {
-                    Log.d("rk",it.toString())
-                    if(it.interests!=null)
-                    {
-                        startActivity(Intent(this,MainActivity::class.java))
-                        finish()
-                    }
-                })
             }
         })
 
@@ -104,7 +107,7 @@ class InterestActivity : BaseActivity() {
     fun displayResult(lis:ArrayList<InterestModel>)
     {
         cancelProgressBar()
-        mainAdapter = GridViewAdapterInterest(this, lis)
+        mainAdapter = GridViewInterest(this, lis)
         binding.gridView.adapter = mainAdapter
         binding.gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             if(set.contains(list[position].id) == true)

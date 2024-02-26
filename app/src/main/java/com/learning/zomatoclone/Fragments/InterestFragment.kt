@@ -11,16 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.learning.zomatoclone.Activity.DetailOfCatCus
 import com.learning.zomatoclone.Activity.DishSpecification
-import com.learning.zomatoclone.Adapter.CategoriesAdapter
-import com.learning.zomatoclone.Adapter.GridViewAdapter2
 import com.learning.zomatoclone.Adapter.InterestFragmentAdapter
-import com.learning.zomatoclone.Model.Categories.CatShown
 import com.learning.zomatoclone.Model.InterestFragModel
 import com.learning.zomatoclone.Model.SingleCatOrCus.Meal
 import com.learning.zomatoclone.R
@@ -28,17 +23,12 @@ import com.learning.zomatoclone.Utils.Constants
 import com.learning.zomatoclone.ViewModel.ApiModel
 import com.learning.zomatoclone.ViewModel.FireStoreStorage
 import com.learning.zomatoclone.databinding.FragmentInterestBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class InterestFragment : Fragment() {
     var dialog:Dialog?=null
     lateinit var binding:FragmentInterestBinding
      lateinit var viewModel:FireStoreStorage
      lateinit var viewModel1:ApiModel
-     var catList:ArrayList<String> = ArrayList()
      var itemList:ArrayList<Meal> = ArrayList()
     var arrlis:ArrayList<InterestFragModel> = ArrayList()
     var set:HashSet<InterestFragModel> = HashSet()

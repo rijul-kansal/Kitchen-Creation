@@ -9,7 +9,7 @@
     <View
         android:id="@+id/view1"
         android:layout_width="397dp"
-        android:layout_height="78dp"
+        android:layout_height="70dp"
         android:background="@drawable/rectangle_background2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,12 +24,13 @@
         android:layout_height="wrap_content"
         android:text="Categories"
         android:textStyle="bold"
-        android:textSize="48sp"
+        android:textSize="32sp"
+        android:fontFamily="@font/mercy_christole"
         android:textColor="@color/white"
         android:gravity="center"/>
     <GridView
-        android:horizontalSpacing="16dp"
-        android:verticalSpacing="6dp"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

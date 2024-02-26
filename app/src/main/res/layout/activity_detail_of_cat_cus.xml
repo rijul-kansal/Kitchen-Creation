@@ -28,8 +28,8 @@
         android:textColor="@color/white"
         android:gravity="center"/>
     <GridView
-        android:horizontalSpacing="6dp"
-        android:verticalSpacing="6dp"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
