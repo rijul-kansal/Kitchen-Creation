@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.learning.zomatoclone.Adapter.GridViewAdapterInterest
 import com.learning.zomatoclone.Model.InterestModel
 import com.learning.zomatoclone.Utils.BaseActivity
+import com.learning.zomatoclone.Utils.Constants
 import com.learning.zomatoclone.ViewModel.ApiModel
 import com.learning.zomatoclone.ViewModel.FireStoreStorage
 import com.learning.zomatoclone.databinding.ActivityIntreastBinding
@@ -23,32 +24,58 @@ class InterestActivity : BaseActivity() {
     var list:ArrayList<InterestModel> = ArrayList()
     var set:HashSet<String> = HashSet()
     var selectedList:ArrayList<InterestModel> = ArrayList()
+    lateinit var  interestValue:String
+    lateinit var mainAdapter :GridViewAdapterInterest
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityIntreastBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         viewModel=ViewModelProvider(this)[ApiModel::class.java]
         viewModel1=ViewModelProvider(this)[FireStoreStorage::class.java]
-
+        interestValue=""
+        if(intent.hasExtra(Constants.Interests))
+        {
+            interestValue= intent.getStringExtra(Constants.Interests).toString()
+        }
         showProgressBar(this)
         viewModel1.getUserProfileDetails()
-        viewModel1.observeGetUserProfileDetails().observe(this, Observer {
-            Log.d("rk",it.toString())
-            if(it.interests!=null)
-            {
-                startActivity(Intent(this,MainActivity::class.java))
-                finish()
-            }
-        })
         viewModel.getCategoriesMeal(this@InterestActivity)
         viewModel.observeGetCategoriesMeal().observe(this, Observer {
             for(i in 0..it.body()!!.categories!!.size-1)
             {
-                list.add(InterestModel(it.body()!!.categories?.get(i)!!.idCategory.toString(),it.body()!!.categories?.get(i)!!.strCategory.toString()))
+                list.add(InterestModel(i.toString(),it.body()!!.categories?.get(i)!!.strCategory.toString()))
             }
             Log.d("rk",list.toString())
             displayResult(list)
+            if(interestValue=="Yes")
+            {
+                binding.nextBtn.text= "Update"
+                Log.d("rk","Yes")
+                viewModel1.observeGetUserProfileDetails().observe(this, Observer {
+                    Log.d("rk",it.toString())
+                    if(it.interests!=null)
+                    {
+                        for(i in 0..it.interests!!.size-1)
+                        {
+                            selectedList.add(it.interests!![i])
+                            it.interests!![i].id?.let { it1 -> set.add(it1) }
+                            Log.d("rk",it.interests!![i].id.toString())
+                            it.interests!![i].id?.let {it1 -> mainAdapter.toggleSelection(it1.toInt()) }
+                        }
+                    }
+                })
+            }
+            else
+            {
+                viewModel1.observeGetUserProfileDetails().observe(this, Observer {
+                    Log.d("rk",it.toString())
+                    if(it.interests!=null)
+                    {
+                        startActivity(Intent(this,MainActivity::class.java))
+                        finish()
+                    }
+                })
+            }
         })
 
         binding.nextBtn.setOnClickListener {
@@ -56,8 +83,10 @@ class InterestActivity : BaseActivity() {
             map["interests"] = selectedList
             viewModel1.updateUserPersonalDataIntoDB1(map)
             startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
         charByCharDisplay(binding.textView.text.toString(),binding.textView)
+
     }
     fun charByCharDisplay(textToDisplay:String,textView: TextView) {
         val handler = Handler(Looper.getMainLooper())
@@ -75,7 +104,7 @@ class InterestActivity : BaseActivity() {
     fun displayResult(lis:ArrayList<InterestModel>)
     {
         cancelProgressBar()
-        val mainAdapter = GridViewAdapterInterest(this, lis)
+        mainAdapter = GridViewAdapterInterest(this, lis)
         binding.gridView.adapter = mainAdapter
         binding.gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             if(set.contains(list[position].id) == true)

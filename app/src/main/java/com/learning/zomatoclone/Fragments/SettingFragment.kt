@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.learning.zomatoclone.Activity.ContactUsActivity
+import com.learning.zomatoclone.Activity.InterestActivity
 import com.learning.zomatoclone.Activity.ProfileActivity
 import com.learning.zomatoclone.UI.IntroActivity
+import com.learning.zomatoclone.Utils.Constants
 import com.learning.zomatoclone.ViewModel.AuthenticationClass
 import com.learning.zomatoclone.databinding.FragmentSettingBinding
 
@@ -38,6 +40,12 @@ class SettingFragment : Fragment() {
         }
         binding.contactUs.setOnClickListener {
             startActivity(Intent(requireActivity(),ContactUsActivity::class.java))
+        }
+
+        binding.Interest.setOnClickListener {
+            val intent=Intent(requireActivity(),InterestActivity::class.java)
+            intent.putExtra(Constants.Interests,"Yes")
+            startActivity(intent)
         }
         return view
     }

@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import com.learning.zomatoclone.Model.InterestModel
 import com.learning.zomatoclone.R
 
-internal class GridViewAdapterInterest(
+class GridViewAdapterInterest(
     private val context: Context,
     private val lis: ArrayList<InterestModel>
 ) :

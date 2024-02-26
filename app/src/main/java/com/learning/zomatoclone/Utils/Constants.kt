@@ -14,6 +14,7 @@ object Constants {
     const val DETAILS_OF_CAT_OR_CUS_Name="detailofcatorcusname"
     const val BASE_URL= "https://www.themealdb.com"
     const val SELECT_PICTURE=200
+    const val Interests="yes|on"
     fun getInstance() : Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

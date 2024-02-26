@@ -124,6 +124,7 @@ class DishSpecification : BaseActivity() {
 
 
     private fun populateData(result: Response<DishModel>) {
+        mealName =result.body()!!.meals?.get(0)!!.strMeal.toString()
         mealCat= result.body()!!.meals?.get(0)!!.strCategory.toString()
         mealArea= result.body()!!.meals?.get(0)!!.strArea.toString()
         binding.typeTv.text= result.body()!!.meals?.get(0)!!.strCategory

@@ -74,10 +74,43 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
-        android:id="@+id/contactUs"
+        android:id="@+id/Interest"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="32dp"
+        app:cardCornerRadius="40dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_marginLeft="8dp"
+                android:id="@+id/Interests"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/intreast" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Interests"
+                android:gravity="center"
+                android:layout_marginLeft="8dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/contactUs"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="290dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="32dp"
@@ -109,7 +142,7 @@
         android:id="@+id/signOut"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="290dp"
+        android:layout_marginTop="380dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="32dp"

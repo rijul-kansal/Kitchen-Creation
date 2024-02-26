@@ -68,7 +68,7 @@ class ApiModel:ViewModel() {
             HomeFragment().updateUI("Internet is not working")
         }
     }
-    fun getSingleCus(activity: Activity,a:String) {
+     fun getSingleCus(activity: Activity, a:String) {
         if (checkForInternet(activity)) {
             val matchApi = Constants.getInstance().create(ApiService::class.java)
             viewModelScope.launch(Dispatchers.IO) {
